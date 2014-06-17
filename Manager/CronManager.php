@@ -29,10 +29,14 @@ class CronManager
      */
     protected $output;
 
-    function __construct()
+    protected $user;
+
+    function __construct($user = 'www-data')
     {
+        $this->user = $user;
         // parsing cron file
-        $process = new Process('crontab -l');
+        $process = new Process("crontab -l -u $user");
+
         $process->run();
         $lines = \array_filter(\explode(PHP_EOL, $process->getOutput()), function($line) {
             return '' != \trim($line);
@@ -94,7 +98,7 @@ class CronManager
 
         \file_put_contents($file, $this->getRaw().PHP_EOL);
 
-        $process = new Process('crontab '.$file);
+        $process = new Process("crontab -u $this->user ".$file);
         $process->run();
 
         $this->error = $process->getErrorOutput();
