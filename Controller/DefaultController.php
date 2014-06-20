@@ -20,7 +20,7 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        $cm = new CronManager();
+        $cm = new CronManager($this->container->getParameter('bcc_cron_manager.user'));
         $this->addFlash('message', $cm->getOutput());
         $this->addFlash('error', $cm->getError());
 
@@ -40,7 +40,7 @@ class DefaultController extends Controller
      */
     public function addAction()
     {
-        $cm = new CronManager();
+        $cm = new CronManager($this->container->getParameter('bcc_cron_manager.user'));
         $cron = new Cron();
         $this->addFlash('message', $cm->getOutput());
         $this->addFlash('error', $cm->getError());
@@ -73,7 +73,7 @@ class DefaultController extends Controller
      */
     public function editAction($id)
     {
-        $cm = new CronManager();
+        $cm = new CronManager($this->container->getParameter('bcc_cron_manager.user'));
         $crons = $cm->get();
         $this->addFlash('message', $cm->getOutput());
         $this->addFlash('error', $cm->getError());
@@ -105,7 +105,7 @@ class DefaultController extends Controller
      */
     public function wakeupAction($id)
     {
-        $cm = new CronManager();
+        $cm = new CronManager($this->container->getParameter('bcc_cron_manager.user'));
         $crons = $cm->get();
         $this->addFlash('message', $cm->getOutput());
         $this->addFlash('error', $cm->getError());
@@ -125,7 +125,7 @@ class DefaultController extends Controller
      */
     public function suspendAction($id)
     {
-        $cm = new CronManager();
+        $cm = new CronManager($this->container->getParameter('bcc_cron_manager.user'));
         $crons = $cm->get();
         $this->addFlash('message', $cm->getOutput());
         $this->addFlash('error', $cm->getError());
@@ -145,7 +145,7 @@ class DefaultController extends Controller
      */
     public function removeAction($id)
     {
-        $cm = new CronManager();
+        $cm = new CronManager($this->container->getParameter('bcc_cron_manager.user'));
         $this->addFlash('message', $cm->getOutput());
         $this->addFlash('error', $cm->getError());
         $cm->remove($id);
@@ -164,7 +164,7 @@ class DefaultController extends Controller
      */
     public function fileAction($id, $type)
     {
-        $cm = new CronManager();
+        $cm = new CronManager($this->container->getParameter('bcc_cron_manager.user'));
         $crons = $cm->get();
         $cron = $crons[$id];
 
